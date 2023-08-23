@@ -1,1 +1,34 @@
+import React, { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext";
 
+const Budget = () => {
+  const { dispatch, Currency } = useContext(AppContext);
+  const [budget, setBudget] = useState("");
+
+  const handleBudgetChange = (event) => {
+    setBudget(parseInt(event.target.value));
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      dispatch({ type: "SET_BUDGET", payload: budget });
+    }
+  };
+
+  return (
+    <div className="alert alert-secondary">
+      <label htmlFor="cost">Budget: {Currency}</label>
+      <input
+        required
+        type="number"
+        id="cost"
+        value={budget}
+        style={{ marginLeft: "2rem", width: "10rem" }}
+        onChange={handleBudgetChange}
+        onKeyDown={handleKeyDown}
+      />
+    </div>
+  );
+};
+
+export default Budget;
